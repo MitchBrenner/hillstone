@@ -102,18 +102,18 @@ const goodLists = [
 
 const storeInfo = {
   heading: "Where to Find Us",
-  address: "456, Raq Blvd. #404, Los Angeles, CA 90210",
+  address: "123 Cocktail Lane, Suite 100, Los Angeles, CA 90001",
   contact: {
     phone: "(555) 987-6543",
-    email: "hello@jsmcocktail.com",
+    email: "hillstone@gmail.com",
   },
 };
 
 const openingHours = [
-  { day: "Mon–Thu", time: "11:00am – 12am" },
-  { day: "Fri", time: "11:00am – 2am" },
-  { day: "Sat", time: "9:00am – 2am" },
-  { day: "Sun", time: "9:00am – 1am" },
+  { day: "Mon–Thu", time: "11:00am – 9:30am" },
+  { day: "Fri-Sat", time: "11:00am – 10pm" },
+
+  { day: "Sun", time: "9:00am – 9pm" },
 ];
 
 const socials = [
