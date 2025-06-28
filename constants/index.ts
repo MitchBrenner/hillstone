@@ -19,28 +19,28 @@ const navLinks = [
 
 const cocktailLists = [
   {
-    name: "Chapel Hill Shiraz",
-    country: "AU",
-    detail: "Battle",
-    price: "$10",
-  },
-  {
-    name: "Caten Malbee",
-    country: "AU",
-    detail: "Battle",
-    price: "$49",
-  },
-  {
-    name: "Rhino Pale Ale",
+    name: "Crisp Martini",
     country: "CA",
-    detail: "750 ml",
-    price: "$20",
+    detail: "Crisp & Clean",
+    price: "$18",
   },
   {
-    name: "Irish Guinness",
+    name: "The Crush",
+    country: "AU",
+    detail: "Refreshing Blend",
+    price: "$18",
+  },
+  {
+    name: "Jackrabbit",
+    country: "CA",
+    detail: "Grapefruit",
+    price: "$19",
+  },
+  {
+    name: "Hillstone Negroni",
     country: "IE",
-    detail: "600 ml",
-    price: "$29",
+    detail: "Classic",
+    price: "$18",
   },
 ];
 

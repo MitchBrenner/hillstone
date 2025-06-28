@@ -63,11 +63,23 @@ function Hero() {
       },
     });
 
-    videoRef.current!.onloadedmetadata = () => {
-      tl.to(videoRef.current, {
-        currentTime: videoRef.current!.duration,
-      });
-    };
+    if (videoRef.current) {
+      const video = videoRef.current;
+
+      const handleLoaded = () => {
+        const duration = video.duration;
+        tl.to(video, {
+          currentTime: duration,
+          ease: "none",
+        });
+      };
+
+      if (video.readyState >= 1) {
+        handleLoaded();
+      } else {
+        video.onloadedmetadata = handleLoaded;
+      }
+    }
   }, []);
 
   return (
