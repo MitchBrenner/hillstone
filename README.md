@@ -2,6 +2,8 @@
 
 **Hillstone** is a small experimental web app built with [Next.js](https://nextjs.org/) and [GSAP](https://gsap.com/) to explore creative animation techniques for modern web development.
 
+[**👉 Live Demo**](https://hillstone.vercel.app)
+
 ## 🚀 Purpose
 
 This project was created **specifically to experiment with GSAP animations** in a Next.js environment. The primary goal was to:
