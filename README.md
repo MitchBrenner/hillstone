@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hillstone 🍸
 
-## Getting Started
+**Hillstone** is a small experimental web app built with [Next.js](https://nextjs.org/) and [GSAP](https://gsap.com/) to explore creative animation techniques for modern web development.
 
-First, run the development server:
+## 🚀 Purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project was created **specifically to experiment with GSAP animations** in a Next.js environment. The primary goal was to:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Learn how to integrate GSAP and its plugins (e.g. ScrollTrigger, SplitText) with Next.js
+- Explore scroll-driven animations
+- Experiment with creative layout transitions and motion design
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js** – React framework for building modern web apps
+- **GSAP** – Powerful JavaScript animation library
+- **Tailwind CSS** – Utility-first styling
+- **React Responsive** – Media queries in React
+- **TypeScript** – Static typing (if used in your project)
 
-## Learn More
+## ⚠️ Disclaimer
 
-To learn more about Next.js, take a look at the following resources:
+> **Note:** This project was **focused entirely on animation experiments** rather than production-ready design. As a result:
+>
+> - Layouts are **not fully responsive** across all screen sizes
+> - Some animations may behave inconsistently on small screens or mobile devices
+> - It’s not optimized for accessibility or performance for real-world use
+>
+> This was purely a playground to push the limits of animation techniques.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📚 Learn More
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [GSAP Documentation](https://gsap.com/docs/)
+- [Next.js Documentation](https://nextjs.org/docs)
