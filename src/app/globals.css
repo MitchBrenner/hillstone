@@ -313,7 +313,7 @@ body {
       @apply flex-center mt-10;
 
       img {
-        @apply object-contain h-[60vh];
+        @apply object-cover h-[60vh] aspect-[4/5] rounded-3xl shadow-2xl;
       }
     }
 

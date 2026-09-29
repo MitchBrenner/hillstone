@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { sliderLists } from "../../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -8,7 +8,6 @@ import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
 const Menu = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useGSAP(() => {
@@ -58,12 +57,12 @@ const Menu = () => {
     <section id="menu" aria-labelledby="menu-heading">
       <img
         src={"/images/slider-left-leaf.png"}
-        alt="left leaf"
+        alt=""
         id="m-left-leaf"
       />
       <img
         src={"/images/slider-right-leaf.png"}
-        alt="right leaf"
+        alt=""
         id="m-right-leaf"
       />
       <h2 id="menu-heading" className="sr-only">
@@ -116,15 +115,11 @@ const Menu = () => {
         </div>
 
         <div className="cocktail">
-          <img
-            src={currentCocktail.image}
-            alt="cocktail"
-            className="object-contain"
-          />
+          <img src={currentCocktail.image} alt={currentCocktail.name} />
         </div>
 
         <div className="recipe">
-          <div ref={contentRef} className="info">
+          <div className="info">
             <p>Recipe for:</p>
             <p id="title">{currentCocktail.name}</p>
           </div>

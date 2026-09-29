@@ -55,7 +55,7 @@ const About = () => {
             <p>
               Every cocktail we serve is a reflection of our obsession with
               detail - from the first muddle to the final garnish. That care is
-              what turns a simple dirnk into something truly emmorable.
+              what turns a simple drink into something truly memorable.
             </p>
             <div>
               <p className="md:text-3xl text-xl font-bold">
@@ -73,26 +73,26 @@ const About = () => {
       <div className="top-grid">
         <div className="md:col-span-3">
           <div className="noisy" />
-          <img src="/images/abt1.png" alt="grid img1" />
+          <img src="/images/abt1.png" alt="Bartender pouring a cocktail" />
         </div>
         <div className="md:col-span-6">
           <div className="noisy" />
-          <img src="/images/abt2.png" alt="grid img1" />
+          <img src="/images/abt2.png" alt="Cocktails lined up on the bar" />
         </div>
         <div className="md:col-span-3">
           <div className="noisy" />
-          <img src="/images/abt5.png" alt="grid img1" />
+          <img src="/images/abt5.png" alt="Freshly garnished drink" />
         </div>
       </div>
 
       <div className="bottom-grid">
         <div className="md:col-span-8">
           <div className="noisy" />
-          <img src="/images/abt3.png" alt="grid img1" />
+          <img src="/images/abt3.png" alt="Guests enjoying drinks at the bar" />
         </div>
         <div className="md:col-span-4">
           <div className="noisy" />
-          <img src="/images/abt4.png" alt="grid img1" />
+          <img src="/images/abt4.png" alt="Close-up of a crafted cocktail" />
         </div>
       </div>
     </div>

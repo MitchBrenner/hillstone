@@ -30,6 +30,15 @@ This project was created **specifically to experiment with GSAP animations** in 
 >
 > This was purely a playground to push the limits of animation techniques.
 
+## 📸 Photo Credits
+
+Menu drink photos are from [Unsplash](https://unsplash.com) under the [Unsplash License](https://unsplash.com/license):
+
+- Classic Mojito — [Dmitry Dreyer](https://unsplash.com/photos/7hHRTw_-1SY)
+- Raspberry Mojito — [Stefan Schauberger](https://unsplash.com/photos/tDYgQcbwLEY)
+- Violet Breeze — [Chinh Le Duc](https://unsplash.com/photos/cO36bp1F-Cg)
+- Classic Margarita — [Kike Salazar N](https://unsplash.com/photos/pn10w9vEfF8)
+
 ## 📚 Learn More
 
 - [GSAP Documentation](https://gsap.com/docs/)

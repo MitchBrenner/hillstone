@@ -48,41 +48,26 @@ const mockTailLists = [
   {
     name: "Tropical Bloom",
     country: "US",
-    detail: "Battle",
+    detail: "Mango & Pineapple",
     price: "$10",
   },
   {
     name: "Passionfruit Mint",
     country: "US",
-    detail: "Battle",
-    price: "$49",
+    detail: "Bright & Minty",
+    price: "$12",
   },
   {
     name: "Citrus Glow",
     country: "CA",
-    detail: "750 ml",
-    price: "$20",
+    detail: "Orange & Yuzu",
+    price: "$11",
   },
   {
     name: "Lavender Fizz",
     country: "IE",
-    detail: "600 ml",
-    price: "$29",
-  },
-];
-
-const profileLists = [
-  {
-    imgPath: "/images/profile1.png",
-  },
-  {
-    imgPath: "/images/profile2.png",
-  },
-  {
-    imgPath: "/images/profile3.png",
-  },
-  {
-    imgPath: "/images/profile4.png",
+    detail: "Floral Sparkle",
+    price: "$12",
   },
 ];
 
@@ -110,9 +95,8 @@ const storeInfo = {
 };
 
 const openingHours = [
-  { day: "Mon–Thu", time: "11:00am – 9:30am" },
-  { day: "Fri-Sat", time: "11:00am – 10pm" },
-
+  { day: "Mon–Thu", time: "11:00am – 9:30pm" },
+  { day: "Fri–Sat", time: "11:00am – 10pm" },
   { day: "Sun", time: "9:00am – 9pm" },
 ];
 
@@ -138,34 +122,34 @@ const sliderLists = [
   {
     id: 1,
     name: "Classic Mojito",
-    image: "/images/drink1.png",
+    image: "/images/drink1.jpg",
     title: "Simple Ingredients, Bold Flavor",
     description:
-      "Made with tequila, lime juice, and orange liqueur, the Margarita is easy to make and full of character. Add a salted rim for the perfect drink on summer nights.",
+      "White rum, fresh lime, muddled mint, and a touch of sugar, topped with soda. The Classic Mojito is easy to love and endlessly refreshing on a warm summer night.",
   },
   {
     id: 2,
     name: "Raspberry Mojito",
-    image: "/images/drink2.png",
-    title: "A Zesty Classic That Never Fails",
+    image: "/images/drink2.jpg",
+    title: "A Fruity Twist on a Classic",
     description:
-      "The Margarita is a classic that balances tangy lime, smooth tequila, and a touch of sweetness. Shaken, frozen, or on the rocks—it’s always crisp & refreshing.",
+      "Fresh raspberries muddled with mint and lime, shaken with rum and finished with soda. Tart, sweet, and bursting with berry flavor in every sip.",
   },
   {
     id: 3,
     name: "Violet Breeze",
-    image: "/images/drink3.png",
-    title: "Simple Ingredients, Bold Flavor",
+    image: "/images/drink3.jpg",
+    title: "Floral, Light, and Unforgettable",
     description:
-      "Made with tequila, lime juice, and orange liqueur, the Margarita is easy to make and full of character. Add a salted rim for the perfect drink on summer nights.",
+      "Gin, crème de violette, and fresh lemon come together in a delicate, softly floral cocktail with a striking color that's as beautiful as it tastes.",
   },
   {
     id: 4,
-    name: "Curacao Mojito",
-    image: "/images/drink4.png",
-    title: "Crafted With Care, Poured With Love",
+    name: "Classic Margarita",
+    image: "/images/drink4.jpg",
+    title: "Bright, Bold, and Perfectly Balanced",
     description:
-      "Each cocktail is made with fresh ingredients and a passion for perfecting every pour, whether you're celebrating or simply relaxing.",
+      "Silver tequila, fresh lime juice, and orange liqueur, shaken hard and served in a salt-rimmed glass. Tangy, smooth, and finished with a dried citrus wheel.",
   },
 ];
 
@@ -173,7 +157,6 @@ export {
   navLinks,
   cocktailLists,
   mockTailLists,
-  profileLists,
   featureLists,
   goodLists,
   openingHours,

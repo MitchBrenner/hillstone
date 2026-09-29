@@ -2,7 +2,7 @@
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
-import { openingHours, socials } from "../../constants";
+import { openingHours, socials, storeInfo } from "../../constants";
 
 const Contact = () => {
   useGSAP(() => {
@@ -47,27 +47,27 @@ const Contact = () => {
     <footer id="contact">
       <img
         src="/images/footer-right-leaf.png"
-        alt="leaf-right"
+        alt=""
         id="f-right-leaf"
       />
       <img
         src="/images/footer-left-leaf.png"
-        alt="leaf-left"
+        alt=""
         id="f-left-leaf"
       />
 
       <div className="content">
-        <h2>Where to Find Us</h2>
+        <h2>{storeInfo.heading}</h2>
 
         <div>
           <h3>Visit Our Bar</h3>
-          <p>123 Cocktail Lane, Suite 100, Los Angeles, CA 90001</p>
+          <p>{storeInfo.address}</p>
         </div>
 
         <div>
           <h3>Contact Us</h3>
-          <p>(555) 987-6543</p>
-          <p>hillstone@gmail.com</p>
+          <p>{storeInfo.contact.phone}</p>
+          <p>{storeInfo.contact.email}</p>
         </div>
 
         <div>
@@ -91,7 +91,7 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 aria-label={social.name}
               >
-                <img src={social.icon} />
+                <img src={social.icon} alt="" />
               </a>
             ))}
           </div>
