@@ -1,60 +1,56 @@
 "use client";
-import { useGSAP } from "@gsap/react";
-import { SplitText } from "gsap/all";
-import gsap from "gsap";
+import { useRef } from "react";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 import { openingHours, socials, storeInfo } from "../../constants";
 
 const Contact = () => {
-  useGSAP(() => {
-    const titleSplit = SplitText.create("#contact h2", { type: "words" });
+  const footerRef = useRef<HTMLElement>(null);
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#contact",
-        start: "top center",
-      },
-      ease: "power1.inOut",
-    });
+  useGSAP(
+    () => {
+      const titleSplit = SplitText.create("h2", { type: "words" });
 
-    timeline
-      .from(titleSplit.words, {
-        opacity: 0,
-        yPercent: 100,
-        stagger: 0.02,
-      })
-      .from("#contact h3, #contact p", {
-        opacity: 0,
-        yPercent: 100,
-        stagger: 0.02,
-      })
-      .to("#f-right-leaf", {
-        y: "-50",
-        duration: 1,
-        ease: "power1.inOut",
-      })
-      .to(
-        "#f-left-leaf",
-        {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top center",
+        },
+        defaults: { ease: "power1.inOut" },
+      });
+
+      timeline
+        .from(titleSplit.words, {
+          opacity: 0,
+          yPercent: 100,
+          stagger: 0.02,
+        })
+        .from("h3, p", {
+          opacity: 0,
+          yPercent: 100,
+          stagger: 0.02,
+        })
+        .to("#f-right-leaf", {
           y: "-50",
           duration: 1,
           ease: "power1.inOut",
-        },
-        "<"
-      );
-  });
+        })
+        .to(
+          "#f-left-leaf",
+          {
+            y: "-50",
+            duration: 1,
+            ease: "power1.inOut",
+          },
+          "<",
+        );
+    },
+    { scope: footerRef },
+  );
 
   return (
-    <footer id="contact">
-      <img
-        src="/images/footer-right-leaf.png"
-        alt=""
-        id="f-right-leaf"
-      />
-      <img
-        src="/images/footer-left-leaf.png"
-        alt=""
-        id="f-left-leaf"
-      />
+    <footer ref={footerRef} id="contact">
+      <img src="/images/footer-right-leaf.png" alt="" id="f-right-leaf" />
+      <img src="/images/footer-left-leaf.png" alt="" id="f-left-leaf" />
 
       <div className="content">
         <h2>{storeInfo.heading}</h2>

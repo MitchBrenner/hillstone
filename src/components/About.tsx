@@ -1,46 +1,47 @@
 "use client";
-import { useGSAP } from "@gsap/react";
-import React from "react";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-
-gsap.registerPlugin(SplitText);
+import React, { useRef } from "react";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 const About = () => {
-  useGSAP(() => {
-    const titleSplit = SplitText.create("#about h2", {
-      type: "words",
-    });
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-    const scrollTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#about",
-        start: "top center",
-      },
-    });
+  useGSAP(
+    () => {
+      const titleSplit = SplitText.create("h2", {
+        type: "words",
+      });
 
-    scrollTimeline
-      .from(titleSplit.words, {
-        opacity: 0,
-        duration: 1,
-        yPercent: 100,
-        ease: "expo.out",
-        stagger: 0.02,
-      })
-      .from(
-        ".top-grid div, .bottom-grid div",
-        {
+      const scrollTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top center",
+        },
+      });
+
+      scrollTimeline
+        .from(titleSplit.words, {
           opacity: 0,
           duration: 1,
-          ease: "expo.inOut",
-          stagger: 0.05,
-        },
-        "-=0.5"
-      );
-  });
+          yPercent: 100,
+          ease: "expo.out",
+          stagger: 0.02,
+        })
+        .from(
+          ".top-grid div, .bottom-grid div",
+          {
+            opacity: 0,
+            duration: 1,
+            ease: "expo.inOut",
+            stagger: 0.05,
+          },
+          "-=0.5",
+        );
+    },
+    { scope: sectionRef },
+  );
 
   return (
-    <div id="about">
+    <div ref={sectionRef} id="about">
       <div className="mb-16 md:px-0 px-5">
         <div className="content">
           <div className="md:col-span-8">

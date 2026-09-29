@@ -1,51 +1,58 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { featureLists, goodLists } from "../../constants";
-import { useMediaQuery } from "react-responsive";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const Art = () => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const start = isMobile ? "top 20%" : "top top";
+  useGSAP(
+    () => {
+      // matchMedia rebuilds the timeline when the viewport crosses the
+      // breakpoint, so the pin start stays correct after a resize.
+      const mm = gsap.matchMedia();
 
-    const maskTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#art",
-        start: start,
-        end: "bottom center",
-        scrub: 1.5,
-        pin: true, // keeep the art section pinned during the scroll
-      },
-    });
+      mm.add(
+        { isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" },
+        (context) => {
+          const { isMobile } = context.conditions as { isMobile: boolean };
 
-    maskTimeline
-      .to(".will-fade", {
-        opacity: 0,
-        stagger: 0.2,
-        ease: "power1.inOut",
-      })
-      .to(".masked-img", {
-        scale: 1.3,
-        maskPosition: "center",
-        maskSize: "400%",
-        duration: 1,
-        ease: "power1.inOut",
-      })
-      .to("#masked-content", {
-        opacity: 1,
-        duration: 1,
-        ease: "power1.inOut",
-      });
-  });
+          const maskTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: isMobile ? "top 20%" : "top top",
+              end: "bottom center",
+              scrub: 1.5,
+              pin: true, // keep the art section pinned during the scroll
+            },
+          });
+
+          maskTimeline
+            .to(".will-fade", {
+              opacity: 0,
+              stagger: 0.2,
+              ease: "power1.inOut",
+            })
+            .to(".masked-img", {
+              scale: 1.3,
+              maskPosition: "center",
+              maskSize: "400%",
+              duration: 1,
+              ease: "power1.inOut",
+            })
+            .to("#masked-content", {
+              opacity: 1,
+              duration: 1,
+              ease: "power1.inOut",
+            });
+        },
+      );
+    },
+    { scope: sectionRef },
+  );
 
   return (
-    <div id="art">
+    <div ref={sectionRef} id="art">
       <div className="container mx-auto h-full pt-20">
         <h2 className="will-fade">The ART</h2>
 

@@ -1,96 +1,103 @@
 "use client";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { SplitText, ScrollTrigger } from "gsap/all";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { useMediaQuery } from "react-responsive";
-
-gsap.registerPlugin(ScrollTrigger, SplitText);
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  useGSAP(() => {
-    const heroSplit = new SplitText(".title", {
-      type: "chars, words",
-    });
-    const paragraphSplit = new SplitText(".subtitle", {
-      type: "lines",
-    });
+  useGSAP(
+    () => {
+      const heroSplit = new SplitText(".title", {
+        type: "chars, words",
+      });
+      const paragraphSplit = new SplitText(".subtitle", {
+        type: "lines",
+      });
 
-    heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
+      heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
 
-    gsap.from(heroSplit.chars, {
-      yPercent: 100,
-      duration: 1.8,
-      ease: "expo.out",
-      stagger: 0.06,
-    });
+      gsap.from(heroSplit.chars, {
+        yPercent: 100,
+        duration: 1.8,
+        ease: "expo.out",
+        stagger: 0.06,
+      });
 
-    gsap.from(paragraphSplit.lines, {
-      opacity: 0,
-      yPercent: 100,
-      duration: 1.8,
-      ease: "expo.out",
-      stagger: 0.06,
-      delay: 1,
-    });
+      gsap.from(paragraphSplit.lines, {
+        opacity: 0,
+        yPercent: 100,
+        duration: 1.8,
+        ease: "expo.out",
+        stagger: 0.06,
+        delay: 1,
+      });
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: "#hero",
-          start: "top top", // Start when the top of the hero section hits the top of the viewport
-          end: "bottom top", // End when the bottom of the hero section hits the top of the viewport
-          scrub: true,
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top", // Start when the top of the hero section hits the top of the viewport
+            end: "bottom top", // End when the bottom of the hero section hits the top of the viewport
+            scrub: true,
+          },
+        })
+        .to(".right-leaf", { y: 200 }, 0)
+        .to(".left-leaf", { y: -200 }, 0);
+
+      // matchMedia rebuilds the video scrub when the viewport crosses the
+      // breakpoint, so start/end stay correct after a resize.
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        { isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" },
+        (context) => {
+          const { isMobile } = context.conditions as { isMobile: boolean };
+          const video = videoRef.current;
+          if (!video) return;
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: video,
+              start: isMobile ? "top 50%" : "center 60%",
+              end: isMobile ? "120% top" : "bottom top",
+              scrub: true,
+              pin: true,
+            },
+          });
+
+          const handleLoaded = () => {
+            tl.to(video, {
+              currentTime: video.duration,
+              ease: "none",
+            });
+          };
+
+          if (video.readyState >= 1) {
+            handleLoaded();
+          } else {
+            video.addEventListener("loadedmetadata", handleLoaded, {
+              once: true,
+            });
+          }
+
+          return () =>
+            video.removeEventListener("loadedmetadata", handleLoaded);
         },
-      })
-      .to(".right-leaf", { y: 200 }, 0)
-      .to(".left-leaf", { y: -200 }, 0);
-
-    const startValue = isMobile ? "top 50%" : "center 60%";
-    const endValue = isMobile ? "120% top" : "bottom top";
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "video",
-        start: startValue,
-        end: endValue,
-        scrub: true,
-        pin: true,
-      },
-    });
-
-    if (videoRef.current) {
-      const video = videoRef.current;
-
-      const handleLoaded = () => {
-        const duration = video.duration;
-        tl.to(video, {
-          currentTime: duration,
-          ease: "none",
-        });
-      };
-
-      if (video.readyState >= 1) {
-        handleLoaded();
-      } else {
-        video.onloadedmetadata = handleLoaded;
-      }
-    }
-  }, []);
+      );
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <>
-      <section id="hero" className="noisy">
+      <section ref={sectionRef} id="hero" className="noisy">
         <h1 className="title">HILLSTONE</h1>
         <div className="left-leaf">
           <Image
             src="/images/hero-left-leaf.png"
             alt="Left Leaf"
-            // className="left-leaf"
             width={200}
             height={200}
           />
@@ -99,7 +106,6 @@ function Hero() {
           <Image
             src="/images/hero-right-leaf.png"
             alt="Right Leaf"
-            // className="right-leaf"
             width={200}
             height={200}
           />

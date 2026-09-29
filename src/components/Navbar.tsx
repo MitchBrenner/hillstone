@@ -1,36 +1,37 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { navLinks } from "../../constants";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 function Navbar() {
+  const navRef = useRef<HTMLElement>(null);
+
   useGSAP(() => {
     const navTween = gsap.timeline({
       scrollTrigger: {
-        trigger: "nav",
+        trigger: navRef.current,
         start: "bottom top", // when the bottom of the nav hits the top of the viewport
       },
     });
 
     navTween.fromTo(
-      "nav",
+      navRef.current,
       {
         backgroundColor: "transparent",
       },
       {
         backgroundColor: "#00000050",
-        backgroundfilter: "blur(10px)",
+        backdropFilter: "blur(10px)",
         duration: 1,
         ease: "power1.inOut",
-      }
+      },
     );
   }, []);
 
   return (
-    <nav>
+    <nav ref={navRef}>
       <div>
-        <a href="#home" className="flex items-center gap-2">
+        <a href="#hero" className="flex items-center gap-2">
           {/* <Image
             src="/images/logo.png"
             alt="Hillstone Logo"

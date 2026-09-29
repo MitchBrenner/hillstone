@@ -1,42 +1,39 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { cocktailLists, mockTailLists } from "../../constants";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const Cocktails = () => {
-  useGSAP(() => {
-    // timeline just for when something happens
-    const parallaxTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#cocktails",
-        start: "top 30%",
-        end: "bottom 80%",
-        scrub: true,
-      },
-    });
-    parallaxTimeline
-      .from("#c-left-leaf", {
-        y: 100,
-        x: -100,
-      })
-      .from("#c-right-leaf", {
-        y: 100,
-        x: 100,
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      // timeline just for when something happens
+      const parallaxTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 30%",
+          end: "bottom 80%",
+          scrub: true,
+        },
       });
-  });
+      parallaxTimeline
+        .from("#c-left-leaf", {
+          y: 100,
+          x: -100,
+        })
+        .from("#c-right-leaf", {
+          y: 100,
+          x: 100,
+        });
+    },
+    { scope: sectionRef },
+  );
 
   return (
-    <section id="cocktails" className="noisy">
+    <section ref={sectionRef} id="cocktails" className="noisy">
       <img src="/images/cocktail-left-leaf.png" alt="" id="c-left-leaf" />
-      <img
-        src="/images/cocktail-right-leaf.png"
-        alt=""
-        id="c-right-leaf"
-      />
+      <img src="/images/cocktail-right-leaf.png" alt="" id="c-right-leaf" />
 
       <div className="list">
         <div className="popular">

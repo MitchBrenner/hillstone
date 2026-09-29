@@ -1,42 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { sliderLists } from "../../constants";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, useGSAP } from "@/lib/gsap";
 
 const Menu = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useGSAP(() => {
-    gsap.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 1 });
+  useGSAP(
+    () => {
+      gsap.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 1 });
 
-    gsap.fromTo(
-      ".cocktail img",
-      { opacity: 0, xPercent: -100 },
-      { opacity: 1, xPercent: 0, duration: 1, ease: "power1.inOut" }
-    );
+      gsap.fromTo(
+        ".cocktail img",
+        { opacity: 0, xPercent: -100 },
+        { opacity: 1, xPercent: 0, duration: 1, ease: "power1.inOut" },
+      );
 
-    gsap.fromTo(
-      ".details h2",
-      {
-        opacity: 0,
-        yPercent: 100,
-      },
-      { opacity: 100, yPercent: 0, ease: "power1.inOut" }
-    );
+      gsap.fromTo(
+        ".details h2",
+        {
+          opacity: 0,
+          yPercent: 100,
+        },
+        { opacity: 1, yPercent: 0, ease: "power1.inOut" },
+      );
 
-    gsap.fromTo(
-      ".details p",
-      {
-        opacity: 0,
-        yPercent: 100,
-      },
-      { opacity: 100, yPercent: 0, ease: "power1.inOut" }
-    );
-  }, [currentIndex]);
+      gsap.fromTo(
+        ".details p",
+        {
+          opacity: 0,
+          yPercent: 100,
+        },
+        { opacity: 1, yPercent: 0, ease: "power1.inOut" },
+      );
+    },
+    { scope: sectionRef, dependencies: [currentIndex] },
+  );
 
   const totalCocktails = sliderLists.length;
 
@@ -54,17 +54,9 @@ const Menu = () => {
   };
 
   return (
-    <section id="menu" aria-labelledby="menu-heading">
-      <img
-        src={"/images/slider-left-leaf.png"}
-        alt=""
-        id="m-left-leaf"
-      />
-      <img
-        src={"/images/slider-right-leaf.png"}
-        alt=""
-        id="m-right-leaf"
-      />
+    <section ref={sectionRef} id="menu" aria-labelledby="menu-heading">
+      <img src={"/images/slider-left-leaf.png"} alt="" id="m-left-leaf" />
+      <img src={"/images/slider-right-leaf.png"} alt="" id="m-right-leaf" />
       <h2 id="menu-heading" className="sr-only">
         Cocktail Menu
       </h2>
@@ -93,24 +85,16 @@ const Menu = () => {
           <button
             className="text-left"
             onClick={() => goToSlide(currentIndex - 1)}
+            aria-label="Previous cocktail"
           >
-            {/* <span>{prevCocktail.name}</span> */}
-            <img
-              src="/images/right-arrow.png"
-              alt="right-arrow"
-              aria-hidden="true"
-            />
+            <img src="/images/left-arrow.png" alt="" aria-hidden="true" />
           </button>
           <button
             className="text-left"
             onClick={() => goToSlide(currentIndex + 1)}
+            aria-label="Next cocktail"
           >
-            {/* <span>{nextCocktail.name}</span> */}
-            <img
-              src="/images/left-arrow.png"
-              alt="left-arrow"
-              aria-hidden="true"
-            />
+            <img src="/images/right-arrow.png" alt="" aria-hidden="true" />
           </button>
         </div>
 
