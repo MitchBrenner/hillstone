@@ -42,10 +42,9 @@ const About = () => {
 
   return (
     <div ref={sectionRef} id="about">
-      <div className="mb-16 md:px-0 px-5">
+      <div className="md:mb-16 mb-10">
         <div className="content">
           <div className="md:col-span-8">
-            <p className="badge">Best Cocktails</p>
             <h2>
               Where every detail matters <span className="text-white">- </span>
               from muddle to garnish

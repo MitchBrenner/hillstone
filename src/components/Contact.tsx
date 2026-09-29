@@ -13,7 +13,9 @@ const Contact = () => {
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: footerRef.current,
-          start: "top center",
+          // The footer is short, so on tall screens its top never reaches
+          // the center; start as soon as it's well into view instead.
+          start: "top 80%",
         },
         defaults: { ease: "power1.inOut" },
       });
@@ -29,15 +31,17 @@ const Contact = () => {
           yPercent: 100,
           stagger: 0.02,
         })
-        .to("#f-right-leaf", {
-          y: "-50",
+        // Both leaves settle into place so they end flush with the footer
+        // edges (moving them outward exposed their flat, cropped edges).
+        .from("#f-right-leaf", {
+          y: -50,
           duration: 1,
           ease: "power1.inOut",
         })
-        .to(
+        .from(
           "#f-left-leaf",
           {
-            y: "-50",
+            y: 50,
             duration: 1,
             ease: "power1.inOut",
           },
@@ -55,24 +59,26 @@ const Contact = () => {
       <div className="content">
         <h2>{storeInfo.heading}</h2>
 
-        <div>
-          <h3>Visit Our Bar</h3>
-          <p>{storeInfo.address}</p>
-        </div>
+        <div className="info-grid">
+          <div>
+            <h3>Visit Our Bar</h3>
+            <p>{storeInfo.address}</p>
+          </div>
 
-        <div>
-          <h3>Contact Us</h3>
-          <p>{storeInfo.contact.phone}</p>
-          <p>{storeInfo.contact.email}</p>
-        </div>
+          <div>
+            <h3>Contact Us</h3>
+            <p>{storeInfo.contact.phone}</p>
+            <p>{storeInfo.contact.email}</p>
+          </div>
 
-        <div>
-          <h3>Open Every Day</h3>
-          {openingHours.map((time) => (
-            <p key={time.day}>
-              {time.day} : {time.time}
-            </p>
-          ))}
+          <div>
+            <h3>Open Every Day</h3>
+            {openingHours.map((time) => (
+              <p key={time.day}>
+                {time.day} : {time.time}
+              </p>
+            ))}
+          </div>
         </div>
 
         <div>

@@ -42,7 +42,11 @@ function Navbar() {
         </a>
         <ul>
           {navLinks.map((link) => (
-            <li key={link.id}>
+            // The Art section is hidden on phones, so hide its link too
+            <li
+              key={link.id}
+              className={link.id === "art" ? "max-md:hidden" : ""}
+            >
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
           ))}

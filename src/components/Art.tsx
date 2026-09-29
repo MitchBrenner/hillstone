@@ -8,45 +8,39 @@ const Art = () => {
 
   useGSAP(
     () => {
-      // matchMedia rebuilds the timeline when the viewport crosses the
-      // breakpoint, so the pin start stays correct after a resize.
+      // The section is hidden on phones, so only pin/animate it on md and up.
       const mm = gsap.matchMedia();
 
-      mm.add(
-        { isMobile: "(max-width: 767px)", isDesktop: "(min-width: 768px)" },
-        (context) => {
-          const { isMobile } = context.conditions as { isMobile: boolean };
+      mm.add("(min-width: 768px)", () => {
+        const maskTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom center",
+            scrub: 1.5,
+            pin: true, // keep the art section pinned during the scroll
+          },
+        });
 
-          const maskTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: isMobile ? "top 20%" : "top top",
-              end: "bottom center",
-              scrub: 1.5,
-              pin: true, // keep the art section pinned during the scroll
-            },
+        maskTimeline
+          .to(".will-fade", {
+            opacity: 0,
+            stagger: 0.2,
+            ease: "power1.inOut",
+          })
+          .to(".masked-img", {
+            scale: 1.3,
+            maskPosition: "center",
+            maskSize: "400%",
+            duration: 1,
+            ease: "power1.inOut",
+          })
+          .to("#masked-content", {
+            opacity: 1,
+            duration: 1,
+            ease: "power1.inOut",
           });
-
-          maskTimeline
-            .to(".will-fade", {
-              opacity: 0,
-              stagger: 0.2,
-              ease: "power1.inOut",
-            })
-            .to(".masked-img", {
-              scale: 1.3,
-              maskPosition: "center",
-              maskSize: "400%",
-              duration: 1,
-              ease: "power1.inOut",
-            })
-            .to("#masked-content", {
-              opacity: 1,
-              duration: 1,
-              ease: "power1.inOut",
-            });
-        },
-      );
+      });
     },
     { scope: sectionRef },
   );

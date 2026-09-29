@@ -43,13 +43,27 @@ body {
   color: transparent;
 }
 
+/* closest-side keeps the glow inside the element, so it fully fades out
+   before any edge instead of being cut off on wide/short sections */
 @utility radial-gradient {
   background: radial-gradient(
-    circle at center,
+    circle closest-side at center,
     #434343 0%,
-    #000 50%,
-    transparent 100%
+    #000 100%
   );
+}
+
+/* The leaf images are corner cut-outs cropped flat on one side and on the
+   top or bottom. These fade that flat top/bottom edge when it doesn't sit
+   against the edge of the screen. */
+@utility fade-top {
+  -webkit-mask-image: linear-gradient(to top, #000 60%, transparent);
+  mask-image: linear-gradient(to top, #000 60%, transparent);
+}
+
+@utility fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
 @utility masked-img {
@@ -68,11 +82,11 @@ body {
     @apply fixed z-50 w-full;
 
     div {
-      @apply flex md:flex-row flex-col md:justify-between items-center gap-5 py-5 lg:px-0 px-5 container mx-auto;
+      @apply flex md:flex-row flex-col md:justify-between items-center md:gap-5 gap-2 md:py-5 py-3 2xl:px-0 px-5 container mx-auto;
     }
 
     p {
-      @apply font-modern-negra text-3xl -mb-2;
+      @apply font-modern-negra md:text-3xl text-2xl -mb-2;
     }
 
     a {
@@ -80,7 +94,7 @@ body {
     }
 
     ul {
-      @apply flex-center lg:gap-12 gap-7;
+      @apply flex-center lg:gap-12 md:gap-7 gap-6;
     }
   }
 
@@ -92,7 +106,12 @@ body {
     @apply relative z-10 min-h-dvh w-full border border-transparent;
 
     h1 {
-      @apply md:mt-32 mt-40 text-8xl md:text-[16vw] leading-none text-center font-modern-negra;
+      @apply md:mt-32 mt-[22vh] text-[19vw] md:text-[16vw] leading-none text-center font-modern-negra whitespace-nowrap;
+    }
+
+    /* lg+: centered under the title, above the glass (phones use .accolade) */
+    .accolade-desktop {
+      @apply hidden lg:block text-center -mt-8 text-base uppercase tracking-[0.3em] text-yellow;
     }
 
     .left-leaf {
@@ -114,18 +133,30 @@ body {
         }
 
         p:last-of-type {
-          @apply 2xl:text-start text-center;
+          @apply md:text-left text-center;
         }
 
         .view-cocktails {
           @apply space-y-5 text-lg lg:max-w-2xs md:max-w-xs w-full;
 
           p {
-            @apply text-left;
+            @apply md:text-left text-center;
           }
 
           a {
-            @apply font-semibold opacity-80 2xl:text-start text-center hover:text-yellow;
+            @apply font-semibold opacity-80 2xl:text-start text-center hover:text-yellow max-md:block max-md:w-fit max-md:mx-auto max-md:border max-md:border-yellow/60 max-md:rounded-full max-md:px-6 max-md:py-2;
+          }
+
+          .accolade {
+            @apply md:hidden flex flex-col items-center gap-2 text-center;
+          }
+
+          .accolade-title {
+            @apply font-modern-negra text-yellow text-4xl leading-none;
+          }
+
+          .accolade-rank {
+            @apply text-sm uppercase tracking-[0.2em] text-white/70;
           }
         }
       }
@@ -133,22 +164,22 @@ body {
   }
 
   video {
-    @apply w-full md:h-[80%] h-1/2 absolute bottom-0 left-0 md:object-contain object-bottom object-cover;
+    @apply w-full md:h-[80%] h-[55%] absolute bottom-0 left-0 md:object-contain object-bottom object-cover;
   }
 
   #cocktails {
     @apply relative min-h-dvh w-full overflow-hidden;
 
     #c-left-leaf {
-      @apply absolute left-0 md:bottom-0 md:top-auto -top-20 md:w-fit w-1/3;
+      @apply absolute left-0 md:bottom-0 md:top-auto top-0 md:w-fit w-1/4 pointer-events-none fade-bottom;
     }
 
     #c-right-leaf {
-      @apply absolute right-0 md:bottom-0 md:top-auto -top-20 md:w-fit w-1/3;
+      @apply absolute right-0 md:bottom-0 md:top-auto top-0 md:w-fit w-1/4 pointer-events-none fade-bottom;
     }
 
     .list {
-      @apply container mx-auto relative z-10 flex md:flex-row flex-col justify-between items-start gap-20 pt-40 2xl:px-0 px-5;
+      @apply container mx-auto relative z-10 flex md:flex-row flex-col justify-between items-start md:gap-20 gap-14 md:pt-40 pt-28 2xl:px-0 px-5;
 
       .popular {
         @apply space-y-8 w-full md:w-fit;
@@ -159,7 +190,7 @@ body {
       }
 
       h2 {
-        @apply text-xl font-medium;
+        @apply md:text-3xl text-2xl font-bold uppercase tracking-wide border-b border-white/20 pb-3;
       }
 
       ul {
@@ -185,13 +216,13 @@ body {
   }
 
   #about {
-    @apply min-h-screen py-28 2xl:px-0 px-5 container mx-auto;
+    @apply relative z-10 [border-image:linear-gradient(#000_0_0)_fill_0//0_100vmax] before:absolute before:-top-20 before:h-20 before:-inset-x-[100vmax] before:bg-linear-to-b before:from-transparent before:to-black before:pointer-events-none min-h-screen md:py-28 py-20 2xl:px-0 px-5 container mx-auto;
 
     .content {
       @apply grid grid-cols-1 lg:grid-cols-12 gap-5;
 
       h2 {
-        @apply text-5xl md:text-6xl font-modern-negra max-w-lg;
+        @apply text-4xl md:text-6xl font-modern-negra max-w-lg;
       }
 
       .sub-content {
@@ -211,15 +242,16 @@ body {
       }
     }
 
-    .badge {
-      @apply inline-block rounded-full bg-white text-black px-4 py-2 text-sm font-medium mb-8;
-    }
-
     .top-grid {
-      @apply grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5 md:px-0 px-5;
+      @apply grid grid-cols-2 xl:grid-cols-12 md:gap-5 gap-3 md:mb-5 mb-3;
 
       > div {
-        @apply rounded-3xl overflow-hidden h-72 relative;
+        @apply rounded-3xl overflow-hidden md:h-72 h-44 relative;
+      }
+
+      /* Below xl: the wide middle photo spans both columns under the pair */
+      > div:nth-child(2) {
+        @apply max-xl:col-span-2 max-xl:order-last md:h-72 h-52;
       }
 
       img {
@@ -228,10 +260,10 @@ body {
     }
 
     .bottom-grid {
-      @apply grid grid-cols-1 md:grid-cols-12 gap-5 md:px-0 px-5;
+      @apply grid grid-cols-2 md:grid-cols-12 md:gap-5 gap-3;
 
       > div {
-        @apply rounded-3xl overflow-hidden h-72 relative;
+        @apply rounded-3xl overflow-hidden md:h-72 h-44 relative;
       }
 
       img {
@@ -243,101 +275,165 @@ body {
   #art {
     @apply flex-center flex-col min-h-dvh p-5 mt-20 relative radial-gradient;
 
+    /* Hidden on phones: the pinned mask reveal doesn't work at this size */
+    @media (width < 48rem) {
+      display: none;
+    }
+
     h2 {
-      @apply relative md:text-[20vw] text-8xl text-nowrap leading-none font-modern-negra text-center text-[#505050] mb-8;
+      @apply relative md:text-[20vw] text-7xl text-nowrap leading-none font-modern-negra text-center text-[#505050] md:mb-8 mb-4;
     }
 
     .content {
-      @apply flex md:flex-row flex-col justify-between md:mb-16 md:mt-0 mt-40 gap-10;
+      @apply md:flex grid grid-cols-2 justify-between md:mb-16 md:mt-0 mt-[38vh] md:gap-10 gap-x-4 gap-y-3;
+
+      ul {
+        @apply max-md:space-y-3 max-md:text-sm;
+      }
+
+      li img {
+        @apply max-md:size-4 shrink-0;
+      }
     }
 
     .cocktail-img {
-      @apply md:w-[60vw] w-full h-[50vh] md:h-[70vh] rounded-4xl overflow-hidden absolute top-0 md:top-1/2 md:-translate-y-1/2 left-1/2 -translate-x-1/2;
+      @apply md:w-[60vw] w-[calc(100%-2.5rem)] h-[50vh] md:h-[70vh] rounded-4xl overflow-hidden absolute md:top-1/2 top-24 md:-translate-y-1/2 left-1/2 -translate-x-1/2;
     }
 
     .masked-container {
       h2 {
-        @apply text-4xl md:text-5xl font-modern-negra text-center mb-10 text-white mt-32;
+        @apply text-4xl md:text-5xl font-modern-negra text-center md:mb-10 mb-6 text-white md:mt-32 mt-12;
       }
 
       div {
-        @apply opacity-0 md:px-0 px-5 space-y-5 absolute md:bottom-5 bottom-52 left-1/2 -translate-x-1/2;
+        @apply opacity-0 md:px-0 px-5 md:space-y-5 space-y-3 absolute md:bottom-5 bottom-24 left-1/2 -translate-x-1/2 w-full md:w-auto;
 
         h3 {
-          @apply md:text-5xl text-2xl text-center font-serif md:w-full w-80 text-white;
+          @apply md:text-5xl text-2xl text-center font-serif w-full text-white;
         }
 
         p {
-          @apply text-lg text-center;
+          @apply md:text-lg text-base text-center;
         }
       }
     }
   }
 
   #menu {
-    @apply relative w-full md:mt-40 mt-0 2xl:px-0 px-5 py-20 radial-gradient;
+    @apply relative w-full md:mt-40 mt-0 2xl:px-0 px-5 md:py-20 py-16 radial-gradient;
 
     #m-left-leaf {
-      @apply object-contain absolute -bottom-20 left-0 md:w-fit w-1/3;
+      /* The image is cropped flat at the bottom, so fade that edge out */
+      @apply object-contain absolute bottom-0 left-0 md:w-fit max-md:hidden pointer-events-none fade-bottom;
     }
 
     #m-right-leaf {
-      @apply object-contain absolute -top-40 right-0 md:w-fit w-1/4;
+      @apply object-contain absolute -top-40 right-0 md:w-fit w-1/4 pointer-events-none fade-top;
     }
 
-    .cocktail-tabs {
-      @apply grid md:grid-cols-4 grid-cols-2 md:gap-20 gap-10 sm:mb-32 mb-20 relative z-10 md:max-w-6xl md:mx-auto;
+    /* Small spaced-out yellow label, matches the hero and footer */
+    .eyebrow {
+      @apply uppercase tracking-[0.3em] text-xs text-yellow;
+    }
 
-      button {
-        @apply md:text-3xl text-xl pb-2 cursor-pointer hover:text-yellow hover:border-yellow border-b-1 transition-colors font-modern-negra;
+    .menu-header {
+      @apply relative z-10 text-center md:mb-12 mb-8 space-y-3;
+
+      h2 {
+        @apply font-modern-negra md:text-6xl text-4xl;
       }
     }
 
-    .content {
-      @apply flex flex-col justify-between items-center container mx-auto relative;
+    /* Tabs: numbered, with a yellow bar marking the active drink */
+    .cocktail-tabs {
+      @apply relative z-10 grid md:grid-cols-4 grid-cols-2 md:max-w-5xl md:mx-auto md:mb-16 mb-10 border-b border-white/10 max-md:border-b-0 max-md:gap-y-2;
 
-      .arrows {
-        @apply flex items-center justify-between w-full absolute;
+      button {
+        @apply relative flex flex-col items-center gap-1 md:py-5 py-3 cursor-pointer text-white/40 transition-colors duration-300 hover:text-white/80 max-md:border-b max-md:border-white/10;
 
-        button {
-          @apply text-white hover:text-yellow cursor-pointer transition-colors max-w-36;
+        /* active indicator, grows from the center */
+        &::after {
+          content: "";
+          @apply absolute -bottom-px left-1/2 h-0.5 w-0 -translate-x-1/2 bg-yellow transition-all duration-500 ease-out;
+        }
 
-          span {
-            @apply text-3xl font-modern-negra leading-none hidden md:block;
+        &.is-active {
+          @apply text-white;
+
+          &::after {
+            @apply w-full;
+          }
+
+          .tab-index {
+            @apply text-yellow;
           }
         }
       }
+
+      .tab-index {
+        @apply text-[0.65rem] tracking-[0.3em] text-white/40 transition-colors duration-300;
+      }
+
+      .tab-name {
+        @apply font-modern-negra md:text-2xl text-lg leading-tight;
+      }
+    }
+
+    /* lg+: name | photo | description. Phones: photo first, then text. */
+    .content {
+      @apply container mx-auto relative z-10 flex flex-col gap-8 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-end lg:gap-14;
+    }
+
+    .info {
+      @apply space-y-2 max-lg:order-2 max-lg:text-center lg:pb-16;
+
+      .info-name {
+        @apply font-modern-negra lg:text-6xl md:text-5xl text-4xl text-yellow leading-none;
+      }
+    }
+
+    .stage {
+      @apply flex flex-col items-center gap-6 max-lg:order-1;
     }
 
     .cocktail {
-      @apply flex-center mt-10;
+      @apply overflow-hidden rounded-3xl shadow-2xl shadow-black/60 ring-1 ring-white/10;
 
       img {
-        @apply object-cover h-[60vh] aspect-[4/5] rounded-3xl shadow-2xl;
+        @apply object-cover lg:h-[55vh] md:h-[55vh] h-[48vh] max-w-full aspect-[4/5];
       }
     }
 
-    .recipe {
-      @apply flex max-md:flex-col gap-10 md:items-center justify-between w-full lg:absolute bottom-0;
+    /* ‹ 01 / 04 › */
+    .controls {
+      @apply flex items-center gap-6;
 
-      .info {
-        @apply space-y-4 lg:translate-y-20;
+      button {
+        @apply size-12 flex-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white cursor-pointer transition-all duration-300 hover:border-yellow hover:text-yellow hover:bg-yellow/10 active:scale-95;
 
-        #title {
-          @apply font-modern-negra md:text-6xl text-3xl text-yellow max-w-40;
+        svg {
+          @apply size-5;
         }
       }
 
-      .details {
-        @apply space-y-5 md:max-w-md text-left;
+      .counter {
+        @apply text-sm tracking-[0.3em] text-white/50 tabular-nums min-w-20 text-center;
 
-        h2 {
-          @apply md:text-5xl text-3xl font-serif;
+        span {
+          @apply text-white;
         }
+      }
+    }
 
-        p {
-          @apply md:text-lg pe-5;
-        }
+    .details {
+      @apply space-y-4 max-lg:order-3 max-lg:text-center lg:max-w-sm lg:pb-16 max-lg:max-w-xl max-lg:mx-auto;
+
+      h3 {
+        @apply font-serif lg:text-4xl text-2xl leading-tight;
+      }
+
+      p {
+        @apply md:text-lg text-base text-white/80 leading-relaxed;
       }
     }
   }
@@ -346,31 +442,32 @@ body {
     @apply relative md:mt-20 mt-0 px-4 text-center w-full overflow-hidden radial-gradient;
 
     #f-left-leaf {
-      @apply absolute bottom-0 left-0 pointer-events-none lg:w-fit w-1/3;
+      @apply absolute bottom-0 left-0 pointer-events-none lg:w-fit md:w-1/3 w-1/5;
     }
 
     #f-right-leaf {
-      @apply absolute top-0 right-0 pointer-events-none hidden lg:block;
+      @apply absolute top-0 right-0 pointer-events-none hidden lg:block fade-top;
     }
 
     .content {
-      @apply container mx-auto lg:py-14 2xl:py-32 py-16 flex flex-col justify-between gap-10 min-h-dvh;
+      @apply container mx-auto relative z-10 md:py-36 py-20 flex flex-col items-center md:gap-16 gap-10;
 
       h2 {
-        @apply lg:text-6xl 2xl:text-8xl text-5xl font-modern-negra md:translate-y-0 translate-y-5;
+        @apply lg:text-6xl 2xl:text-7xl text-5xl font-modern-negra;
+      }
+
+      /* Address, contact and hours: side by side from md up, stacked on phones */
+      .info-grid {
+        @apply grid md:grid-cols-3 md:gap-8 gap-8 w-full max-w-5xl;
       }
 
       h3 {
-        @apply uppercase xl:text-base 2xl:text-lg text-base mb-2;
+        @apply uppercase tracking-[0.2em] text-sm text-yellow mb-3;
       }
 
       p {
-        @apply lg:text-2xl 2xl:text-3xl text-sm;
+        @apply lg:text-lg text-base leading-relaxed;
       }
-    }
-
-    .drink-img {
-      @apply absolute bottom-0 right-0 lg:w-96 w-1/3 pointer-events-none;
     }
   }
 }

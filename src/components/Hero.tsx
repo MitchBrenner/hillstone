@@ -94,6 +94,7 @@ function Hero() {
     <>
       <section ref={sectionRef} id="hero" className="noisy">
         <h1 className="title">HILLSTONE</h1>
+        <p className="accolade-desktop">★ Voted LA&apos;s #1 Cocktail Bar</p>
         <div className="left-leaf">
           <Image
             src="/images/hero-left-leaf.png"
@@ -122,6 +123,13 @@ function Hero() {
               </p>
             </div>
             <div className="view-cocktails">
+              {/* Phones only: md+ already shows the yellow tagline block */}
+              <div className="accolade">
+                <span className="accolade-title">Sip the Spirit of Summer</span>
+                <span className="accolade-rank">
+                  ★ Voted LA&apos;s #1 Cocktail Bar
+                </span>
+              </div>
               <p className="subtitle">
                 Every cocktail on our menu is a blend of premium ingredients,
                 creative flair, and timeless recipes - designed to delight your
