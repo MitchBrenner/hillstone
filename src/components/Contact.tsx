@@ -67,8 +67,16 @@ const Contact = () => {
 
           <div>
             <h3>Contact Us</h3>
-            <p>{storeInfo.contact.phone}</p>
-            <p>{storeInfo.contact.email}</p>
+            <p>
+              <a href={`tel:${storeInfo.contact.phone.replace(/[^\d+]/g, "")}`}>
+                {storeInfo.contact.phone}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${storeInfo.contact.email}`}>
+                {storeInfo.contact.email}
+              </a>
+            </p>
           </div>
 
           <div>

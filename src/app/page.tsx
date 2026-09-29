@@ -1,5 +1,6 @@
 import About from "@/components/About";
-import Art from "@/components/Art";
+// Art section is disabled for now; uncomment this and <Art /> below to bring it back
+// import Art from "@/components/Art";
 import Cocktails from "@/components/Cocktails";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
@@ -13,7 +14,7 @@ const page = () => {
       <Hero />
       <Cocktails />
       <About />
-      <Art />
+      {/* <Art /> */}
       <Menu />
       <Contact />
     </main>

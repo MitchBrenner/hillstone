@@ -7,10 +7,11 @@ const navLinks = [
     id: "about",
     title: "About Us",
   },
-  {
-    id: "art",
-    title: "The Art",
-  },
+  // Art section is disabled for now (see src/app/page.tsx)
+  // {
+  //   id: "art",
+  //   title: "The Art",
+  // },
   {
     id: "contact",
     title: "Contact",

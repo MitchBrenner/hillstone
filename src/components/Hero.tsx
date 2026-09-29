@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 // Phones scrub a pre-extracted image sequence on a <canvas> instead of the
 // video: seeking video on mobile Safari is slow and stutters, while drawing a
@@ -160,21 +160,6 @@ function Hero() {
         resize();
         window.addEventListener("resize", resize);
 
-        // The next section; the glass stays put until it arrives, then fades
-        // out as it scrolls in, instead of being dragged up and cut off.
-        const about = document.getElementById("about");
-
-        // Keep the glass pinned until About is halfway up the screen
-        ScrollTrigger.create({
-          trigger: canvas,
-          start: "top 50%",
-          endTrigger: about,
-          end: "top 50%",
-          pin: true,
-          anticipatePin: 1,
-        });
-
-        // Play the frames until About starts to come into view
         gsap.to(state, {
           frame: FRAME_COUNT - 1,
           ease: "none",
@@ -182,28 +167,18 @@ function Hero() {
           scrollTrigger: {
             trigger: canvas,
             start: "top 50%",
-            endTrigger: about,
-            end: "top bottom",
+            // Stay pinned until About (which covers the glass) is 75% down the
+            // screen, so only the top part of the glass shows as they scroll
+            // away together. Lower % = less glass left showing.
+            // (element, not "#about": selectors resolve inside the Hero scope)
+            endTrigger: document.getElementById("about"),
+            end: "top 75%",
             // A little smoothing hides touch-scroll jitter
             scrub: 0.4,
+            pin: true,
+            anticipatePin: 1,
           },
         });
-
-        // Then fade the glass out as About scrolls up over it
-        gsap.fromTo(
-          canvas,
-          { opacity: 1 },
-          {
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: about,
-              start: "top bottom",
-              end: "top 55%",
-              scrub: true,
-            },
-          },
-        );
 
         return () => window.removeEventListener("resize", resize);
       });

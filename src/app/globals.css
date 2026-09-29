@@ -98,8 +98,14 @@ body {
     }
   }
 
+  /* Film-grain overlay. Generated with an SVG noise filter (a few hundred
+     bytes, no download) instead of the old 1.8MB noise.png, which loaded
+     noticeably late on phones. Tuned to match that texture: gray grain at
+     30% opacity. The 256px tile repeats seamlessly (stitchTiles). */
   .noisy {
-    @apply absolute inset-0 size-full bg-[url("/images/noise.png")];
+    @apply absolute inset-0 size-full;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.2 0 0 0 -0.43 1.2 0 0 0 -0.43 1.2 0 0 0 -0.43 0 0 0 0 0.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
   }
 
   #hero {
@@ -325,7 +331,7 @@ body {
   }
 
   #menu {
-    @apply relative w-full md:mt-40 mt-0 2xl:px-0 px-5 md:py-20 py-16 radial-gradient;
+    @apply relative w-full md:mt-10 mt-0 2xl:px-0 px-5 md:py-20 py-16 radial-gradient;
 
     #m-left-leaf {
       /* The image is cropped flat at the bottom, so fade that edge out */
@@ -472,6 +478,10 @@ body {
 
       p {
         @apply lg:text-lg text-base leading-relaxed;
+
+        a {
+          @apply transition-colors hover:text-yellow;
+        }
       }
     }
   }
