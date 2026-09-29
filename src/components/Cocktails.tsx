@@ -8,24 +8,26 @@ const Cocktails = () => {
 
   useGSAP(
     () => {
-      // timeline just for when something happens
-      const parallaxTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 30%",
-          end: "bottom 80%",
-          scrub: true,
-        },
+      // Leaf parallax; the leaves are hidden on phones, so skip it there
+      gsap.matchMedia().add("(min-width: 768px)", () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 30%",
+              end: "bottom 80%",
+              scrub: true,
+            },
+          })
+          .from("#c-left-leaf", {
+            y: 100,
+            x: -100,
+          })
+          .from("#c-right-leaf", {
+            y: 100,
+            x: 100,
+          });
       });
-      parallaxTimeline
-        .from("#c-left-leaf", {
-          y: 100,
-          x: -100,
-        })
-        .from("#c-right-leaf", {
-          y: 100,
-          x: 100,
-        });
     },
     { scope: sectionRef },
   );

@@ -8,4 +8,8 @@ import { useGSAP } from "@gsap/react";
 // so the plugins are guaranteed to be registered before they're used.
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
+// Mobile browsers resize the viewport as the address bar shows/hides while
+// scrolling; recalculating every trigger on that makes pinned sections jump.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 export { gsap, ScrollTrigger, SplitText, useGSAP };
