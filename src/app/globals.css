@@ -20,8 +20,21 @@ body {
   width: 100%;
   background-color: black;
   color: white;
-  scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+/* Smooth anchor scrolling, unless the user has asked for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Visible focus ring for keyboard users only (not on mouse click) */
+:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 @utility flex-center {
@@ -227,7 +240,7 @@ body {
   }
 
   #about {
-    @apply relative z-10 [border-image:linear-gradient(#000_0_0)_fill_0//0_100vmax] before:absolute before:-top-20 before:h-20 before:-inset-x-[100vmax] before:bg-linear-to-b before:from-transparent before:to-black before:pointer-events-none min-h-screen md:py-28 py-20 2xl:px-0 px-5 container mx-auto;
+    @apply max-md:scroll-mt-6 relative z-10 [border-image:linear-gradient(#000_0_0)_fill_0//0_100vmax] before:absolute before:-top-20 before:h-20 before:-inset-x-[100vmax] before:bg-linear-to-b before:from-transparent before:to-black before:pointer-events-none min-h-screen md:py-28 py-20 2xl:px-0 px-5 container mx-auto;
 
     .content {
       @apply grid grid-cols-1 lg:grid-cols-12 gap-5;

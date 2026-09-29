@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { sliderLists } from "../../constants";
 import { gsap, useGSAP } from "@/lib/gsap";
 
@@ -42,7 +42,13 @@ const Menu = () => {
       gsap.fromTo(
         ".cocktail img",
         { xPercent: 25 * dir, opacity: 0, scale: 0.96 },
-        { xPercent: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" },
+        {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          ease: "power3.out",
+        },
       );
 
       gsap.fromTo(
@@ -60,6 +66,14 @@ const Menu = () => {
     { scope: sectionRef, dependencies: [currentIndex] },
   );
 
+  // Preload every drink photo so switching slides never shows a blank frame
+  useEffect(() => {
+    sliderLists.forEach(({ image }) => {
+      const img = new window.Image();
+      img.src = image;
+    });
+  }, []);
+
   const goToSlide = (index: number, direction?: 1 | -1) => {
     const newIndex = (index + totalCocktails) % totalCocktails;
     if (newIndex === currentIndex) return;
@@ -69,7 +83,16 @@ const Menu = () => {
   };
 
   return (
-    <section ref={sectionRef} id="menu" aria-labelledby="menu-heading">
+    <section
+      ref={sectionRef}
+      id="menu"
+      aria-labelledby="menu-heading"
+      // ←/→ switch drinks while focus is anywhere in the section
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") goToSlide(currentIndex - 1, -1);
+        if (e.key === "ArrowRight") goToSlide(currentIndex + 1, 1);
+      }}
+    >
       <img src={"/images/slider-left-leaf.png"} alt="" id="m-left-leaf" />
       <img src={"/images/slider-right-leaf.png"} alt="" id="m-right-leaf" />
 

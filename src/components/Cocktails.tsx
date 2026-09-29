@@ -49,7 +49,7 @@ const Cocktails = () => {
                     {drink.country} | {drink.detail}
                   </p>
                 </div>
-                <span>- {drink.price}</span>
+                <span>{drink.price}</span>
               </li>
             ))}
           </ul>
@@ -66,7 +66,7 @@ const Cocktails = () => {
                     {drink.country} | {drink.detail}
                   </p>
                 </div>
-                <span>- {drink.price}</span>
+                <span>{drink.price}</span>
               </li>
             ))}
           </ul>

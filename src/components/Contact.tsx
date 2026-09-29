@@ -97,8 +97,11 @@ const Contact = () => {
               <a
                 key={social.name}
                 href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                // Placeholder "#" links shouldn't open a blank new tab
+                {...(social.url !== "#" && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
                 aria-label={social.name}
               >
                 <img src={social.icon} alt="" />

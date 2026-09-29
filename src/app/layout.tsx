@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     email: false,
     address: false,
   },
+};
+
+// Colors the phone browser's address bar/toolbar to match the site
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default function RootLayout({

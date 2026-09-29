@@ -194,17 +194,19 @@ function Hero() {
         <div className="left-leaf">
           <Image
             src="/images/hero-left-leaf.png"
-            alt="Left Leaf"
+            alt=""
             width={200}
-            height={200}
+            height={347}
+            priority
           />
         </div>
         <div className="right-leaf">
           <Image
             src="/images/hero-right-leaf.png"
-            alt="Right Leaf"
+            alt=""
             width={200}
-            height={200}
+            height={419}
+            priority
           />
         </div>
 
